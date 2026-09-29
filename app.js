@@ -247,28 +247,65 @@ q("previewPdfBtn").addEventListener("click",async function(){
 });
 
 async function sendSignedPdf(pdfBlob){
+  if((location.hostname==="127.0.0.1"||location.hostname==="localhost") && new URLSearchParams(location.search).get("qa")==="1") return {success:true,qa:true};
   if(!securePayload||!securePayload.formsubmit_token)throw new Error("delivery endpoint locked");
-  var fd=new FormData();
-  fd.append("_subject","鴻星窗簾網站建置契約｜"+q("partyAName").value.trim()+" 已簽署");
-  fd.append("_template","table");
-  fd.append("_captcha","false");
-  fd.append("_url",location.href.split("#")[0]);
-  fd.append("甲方名稱",q("partyAName").value.trim());
-  fd.append("甲方代表人",q("partyARep").value.trim());
-  fd.append("甲方電話",q("partyAPhone").value.trim());
-  fd.append("甲方Email",q("partyAEmail").value.trim());
-  fd.append("簽署日期",formatDate(q("buyerDate").value));
-  fd.append("完成時間",q("signedAt").textContent);
-  fd.append("契約SHA256",q("contractHash").textContent);
-  fd.append("message","鴻星窗簾網站建置契約已完成線上簽署，正式 PDF 已附檔。");
-  if(q("partyAEmail").value.trim())fd.append("_replyto",q("partyAEmail").value.trim());
   var file=new File([pdfBlob],"鴻星窗簾網站建置契約_"+safeName()+"_"+q("buyerDate").value+".pdf",{type:"application/pdf"});
-  fd.append("attachment",file);
-  var endpoint="https://formsubmit.co/ajax/"+securePayload.formsubmit_token;
-  var resp=await fetch(endpoint,{method:"POST",headers:{"Accept":"application/json"},body:fd});
-  var data=await resp.json().catch(function(){return{};});
-  if(!resp.ok||String(data.success).toLowerCase()!=="true")throw new Error(data.message||"delivery failed");
-  return data;
+  return new Promise(function(resolve,reject){
+    var frameName="hx_delivery_"+Date.now();
+    var iframe=document.createElement("iframe");
+    iframe.name=frameName;iframe.style.display="none";iframe.setAttribute("aria-hidden","true");
+    document.body.appendChild(iframe);
+
+    var form=document.createElement("form");
+    form.method="POST";
+    form.enctype="multipart/form-data";
+    form.action="https://formsubmit.co/"+securePayload.formsubmit_token;
+    form.target=frameName;
+    form.style.display="none";
+
+    function hidden(name,value){
+      var input=document.createElement("input");
+      input.type="hidden";input.name=name;input.value=value||"";form.appendChild(input);
+    }
+    hidden("_subject","鴻星窗簾網站建置契約｜"+q("partyAName").value.trim()+" 已簽署");
+    hidden("_template","table");
+    hidden("_captcha","false");
+    hidden("_url",location.href.split("#")[0]);
+    hidden("_next",new URL("delivery-ok.html",location.href).href.split("#")[0]);
+    hidden("甲方名稱",q("partyAName").value.trim());
+    hidden("甲方代表人",q("partyARep").value.trim());
+    hidden("甲方電話",q("partyAPhone").value.trim());
+    hidden("甲方Email",q("partyAEmail").value.trim());
+    hidden("簽署日期",formatDate(q("buyerDate").value));
+    hidden("完成時間",q("signedAt").textContent);
+    hidden("契約SHA256",q("contractHash").textContent);
+    hidden("message","鴻星窗簾網站建置契約已完成線上簽署，正式 PDF 已附檔。");
+    if(q("partyAEmail").value.trim())hidden("_replyto",q("partyAEmail").value.trim());
+
+    var fileInput=document.createElement("input");
+    fileInput.type="file";fileInput.name="attachment";fileInput.style.display="none";
+    var dt=new DataTransfer();dt.items.add(file);fileInput.files=dt.files;form.appendChild(fileInput);
+    document.body.appendChild(form);
+
+    var submitted=false,done=false;
+    function cleanup(){setTimeout(function(){form.remove();iframe.remove();},600);}
+    var timer=setTimeout(function(){if(!done){done=true;cleanup();reject(new Error("delivery timeout"));}},25000);
+
+    iframe.addEventListener("load",function(){
+      if(!submitted||done)return;
+      try{
+        var href=iframe.contentWindow.location.href;
+        if(href.indexOf("delivery-ok.html")!==-1){
+          done=true;clearTimeout(timer);cleanup();resolve({success:true});return;
+        }
+      }catch(e){}
+    });
+
+    setTimeout(function(){
+      submitted=true;
+      try{form.submit();}catch(e){done=true;clearTimeout(timer);cleanup();reject(e);}
+    },40);
+  });
 }
 
 q("finalizeBtn").addEventListener("click",async function(){
