@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#f4f1ea">
+<title>鴻星窗簾｜網站建置契約</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar no-print">
+    <div>
+      <div class="topbar__eyebrow">HONG XING CURTAIN</div>
+      <div class="topbar__title">網站建置契約</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="action secondary" id="saveBtn" type="button">儲存草稿</button>
+      <button class="action secondary" id="archiveBtn" type="button">下載副本</button>
+      <button class="action secondary" id="recordBtn" type="button">下載紀錄</button>
+      <button class="action primary" id="printBtn" type="button">列印 / 存 PDF</button>
+    </div>
+  </header>
+
+  <main class="document" id="contract">
+    <section class="cover">
+      <div class="cover__meta">
+        <span>網站設計・建置・交接</span>
+        <span>版本 2026-09-29</span>
+      </div>
+      <h1>鴻星窗簾<br>網站建置契約書</h1>
+      <p class="cover__sub">WordPress + Elementor 多頁式形象網站</p>
+
+      <dl class="terms">
+        <div><dt>專案總價</dt><dd>NT$30,000</dd></div>
+        <div><dt>付款方式</dt><dd>50% + 50%</dd></div>
+        <div><dt>預計工期</dt><dd>10–15 個工作天</dd></div>
+        <div><dt>免費保固</dt><dd>60 日 Bug 保固</dd></div>
+      </dl>
+
+      <div class="privacy-note">
+        本頁採本機簽署模式。甲方填寫資料與手寫簽名預設只保存在目前瀏覽器；完成後請下載簽署副本並存成 PDF，由雙方各自保存。
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">01</div>
+      <div class="article__body">
+        <h2>契約雙方</h2>
+        <div class="form-grid">
+          <label class="field"><span>甲方（委託人）名稱 *</span><input id="partyAName" data-save autocomplete="organization"></label>
+          <label class="field"><span>甲方統一編號</span><input id="partyATax" data-save inputmode="numeric"></label>
+          <label class="field"><span>甲方代表人 / 聯絡人 *</span><input id="partyARep" data-save autocomplete="name"></label>
+          <label class="field"><span>甲方聯絡電話</span><input id="partyAPhone" data-save autocomplete="tel" inputmode="tel"></label>
+          <label class="field"><span>甲方 Email</span><input id="partyAEmail" data-save autocomplete="email" inputmode="email"></label>
+          <div class="field"><span>乙方（受託人）</span><div class="field__fixed">林震宇</div></div>
+        </div>
+        <p>甲乙雙方就「鴻星窗簾官方網站」之設計、建置、測試、交接與上線協助，依本契約約定辦理。</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">02</div>
+      <div class="article__body">
+        <h2>專案範圍</h2>
+        <ol class="clause-list">
+          <li>使用 <strong>WordPress + Elementor</strong> 建置多頁式形象網站。</li>
+          <li>首頁包含門市資訊、電話、Google 地圖 / 連結、完工大圖、主要產品入口、精選完工案例與免費丈量 CTA。</li>
+          <li>產品服務包含客戶指定分類入口；各分類得依內容量使用共用 Elementor 產品模板，不代表每一類均製作完全不同版型。</li>
+          <li>建立完工案例後台：可管理標題、封面、Gallery、地區、產品、空間、風格、日期、摘要、需求、解法、草稿 / 發布；新增案例不需重新使用 Elementor 排版。</li>
+          <li>建立基礎 Local SEO：主要頁 title / description、LocalBusiness Schema、Sitemap、Google Maps、RWD 及 Search Console 串接協助。</li>
+          <li>依甲方確認的 <strong>9 組舊 URL → 新 URL</strong> 對應建立 301，並協助正式 DNS 切換。</li>
+          <li>交付 WordPress Highest Administrator，並提供一次線上教學 / 錄影與交接。</li>
+        </ol>
+        <div class="scope-lines">
+          <p><b>主力產品</b>　布簾、遮光窗簾、蛇形簾、調光捲簾、捲簾、羅馬簾、門簾。</p>
+          <p><b>網站分類</b>　布簾、遮光窗簾、蛇型簾 / 蛇簾、調光捲簾、蜂巢簾、羅馬簾、塑膠拉門、壁紙、木百葉、片簾、紗簾等。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="article payment-section">
+      <div class="article__no">03</div>
+      <div class="article__body">
+        <h2>專案價金與付款</h2>
+        <div class="payment-layout">
+          <div>
+            <p class="price">NT$30,000</p>
+            <p>第一期 50%：<strong>NT$15,000</strong>，簽約後支付。</p>
+            <p>第二期 50%：<strong>NT$15,000</strong>，Staging 驗收通過、正式切站前支付。</p>
+          </div>
+          <div class="secure-box" id="securePayment">
+            <div class="secure-box__label">受保護付款資訊</div>
+            <div id="paymentLocked">請使用專屬簽約連結開啟。</div>
+            <div id="paymentUnlocked" hidden>
+              <div class="bank-name" id="bankName"></div>
+              <div class="bank-account" id="bankAccount"></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-grid form-grid--compact">
+          <label class="field"><span>轉帳日期</span><input id="transferDate" data-save type="date"></label>
+          <label class="field"><span>轉帳帳號末五碼</span><input id="transferLast5" data-save inputmode="numeric" maxlength="5"></label>
+          <label class="field"><span>憑證 / 開立方式</span><input id="invoiceType" data-save></label>
+          <label class="field"><span>付款備註</span><input id="paymentNote" data-save></label>
+        </div>
+        <p class="small">主機、網域、Elementor、Premium Plugin、第三方 SaaS、廣告及其他第三方費用不包含於 NT$30,000 內，由甲方以自己的帳號與付款方式直接支付。</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">04</div>
+      <div class="article__body">
+        <h2>工期與甲方配合</h2>
+        <ol class="clause-list">
+          <li>預計工期：第一期款與必要資料到齊後 <strong>10–15 個工作天</strong>。</li>
+          <li>甲方應提供素材、分類、聯絡資料、9 組 301 對應、必要帳號授權與集中回饋。</li>
+          <li>甲方延遲資料、驗證、付款或回饋時，交付日相應順延。</li>
+          <li>Google、HiNet、Hosting、Elementor 或其他第三方審核 / 故障所需時間，不視為乙方遲延。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">05</div>
+      <div class="article__body">
+        <h2>設計修改與需求變更</h2>
+        <ol class="clause-list">
+          <li>固定價內含 <strong>2 輪集中式</strong>設計 / 版面修正，每輪由甲方一次整理完整修改清單。</li>
+          <li>確實不符合本契約規格之修正，不視為改變設計方向。</li>
+          <li>已確認方向後要求全面換風格、新增頁面、新功能或新串接，屬追加需求。</li>
+          <li>追加需求須先報價，並以 Email、訊息、報價單或其他可保存文字確認後施工。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">06</div>
+      <div class="article__body">
+        <h2>帳號、主機與資產所有權</h2>
+        <ol class="clause-list">
+          <li>既有網域 <strong>0932204380.com.tw</strong> 沿用甲方現有網域。</li>
+          <li>Hosting 原則由甲方本人開設，並由甲方自行綁定付款方式。</li>
+          <li>網域、Hosting、Google Business、Search Console、GA4、Elementor 等核心資產由甲方持有 Owner / 最高權限。</li>
+          <li>乙方僅取得履約必要權限；未經甲方同意，不得移轉、出售、註銷或更改 Owner。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">07</div>
+      <div class="article__body">
+        <h2>SEO、Google、DNS 與 301</h2>
+        <ol class="clause-list">
+          <li>乙方負責合理的技術 SEO 與搜尋引擎可存取條件，但<strong>不保證 Google 排名、流量、關鍵字第一頁或特定收錄時間</strong>。</li>
+          <li>Google Business Profile、Search Console 等服務如要求 Owner 驗證，由甲方本人完成；等待甲方驗證不視為乙方瑕疵。</li>
+          <li>本固定價 301 以甲方確認的 9 組 mapping 為準；超出清單的大量舊站遷移另行盤點。</li>
+          <li>正式 DNS 切換前保存 DNS snapshot，並核對 MX、TXT、SPF、DKIM、DMARC，避免影響既有 Email。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">08</div>
+      <div class="article__body">
+        <h2>客觀驗收</h2>
+        <table class="legal-table">
+          <thead><tr><th>類別</th><th>驗收標準</th></tr></thead>
+          <tbody>
+            <tr><td>系統 / 所有權</td><td>WordPress 可登入；Elementor 可編輯約定固定頁；甲方取得 Administrator；Hosting / Domain 核心資產由甲方持有。</td></tr>
+            <tr><td>首頁 / 頁面</td><td>首頁具門市資訊、電話、Map、完工大圖、免費丈量 CTA；產品、案例與聯絡核心頁可開啟。</td></tr>
+            <tr><td>案例後台</td><td>可新增案例、換封面、選 Gallery、地區 / 產品、存草稿 / 發布；發布後有獨立 URL。</td></tr>
+            <tr><td>RWD / 瀏覽器</td><td>390px 手機無明顯水平 overflow；Chromium 與 WebKit / Safari 核心頁正常；主要圖片與導覽正常。</td></tr>
+            <tr><td>SEO</td><td>production 無 noindex；robots、Sitemap 可讀；LocalBusiness Schema 有基本欄位；主要頁有 title / description。</td></tr>
+            <tr><td>301 / DNS</td><td>9 組 mapping 由甲方確認；切站後抽測；DNS snapshot、Email DNS、SSL 與 Rollback 可驗。</td></tr>
+            <tr><td>教學 / 交接</td><td>線上 / 錄影教學完成；甲方本人成功自行發布一篇測試案例；Highest Administrator 已交付。</td></tr>
+          </tbody>
+        </table>
+        <p>Staging 交付後，甲方應於 <strong>5 個工作日</strong>內一次提出具體不符合項目，乙方修正後重新送驗。</p>
+        <p>已核准後改變美感方向、增加原 scope 外功能、Google 未在甲方期待時間內收錄 / 排名，或第三方待甲方 Owner 驗證，不構成拒絕驗收理由。</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">09</div>
+      <div class="article__body">
+        <h2>教學與交接</h2>
+        <ol class="clause-list">
+          <li>一次 60–90 分鐘線上教學，並提供錄影或等效操作紀錄。</li>
+          <li>內容：新增 / 修改完工案例、更換圖片與文字、基本 SEO 欄位、Google Business 基本編輯。</li>
+          <li>交接後 14 日內含一次最多 30 分鐘補充說明。</li>
+          <li>「包教會」以甲方可自行完成一篇測試案例及基本內容修改為客觀證據，不代表無限期免費顧問。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">10</div>
+      <div class="article__body">
+        <h2>不包含項目</h2>
+        <ul class="clause-list">
+          <li>主機、網域、Elementor、付費外掛、第三方 SaaS 等年費。</li>
+          <li>Logo 重製、完整品牌識別、專業攝影、影片、3D 或大量圖片精修。</li>
+          <li>大量文案撰寫、舊文章 / 舊案例人工搬移、超過 9 組的大量舊 URL 遷移。</li>
+          <li>長期 SEO / Google Business 代營運、排名保證、廣告投放。</li>
+          <li>會員、預約、金流、CRM、ERP、API 等未列入 scope 的新系統。</li>
+          <li>無限次改稿，以及高階窗簾物理引擎 / 3D / 材質模擬的無限修改。</li>
+        </ul>
+        <p>現有互動式窗飾效果如保留，視為乙方加值展示；除非另以書面規格加入，不列為 NT$30,000 固定價核心驗收項目。</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">11</div>
+      <div class="article__body">
+        <h2>素材與智慧財產權</h2>
+        <ol class="clause-list">
+          <li>甲方提供的照片、文字、商標、Logo 及其他素材，甲方應確認具有合法使用權。</li>
+          <li>甲方付清全部價款後，可永久使用及修改本網站最終客製成果，也可委託第三方接手維護。</li>
+          <li>WordPress、Elementor、開源套件、第三方外掛、字型與圖庫仍依各自授權條款。</li>
+          <li>乙方既有通用程式、工具、工作流程及可重複利用元件不因本案移轉，但不得妨礙甲方正常使用本網站。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">12</div>
+      <div class="article__body">
+        <h2>保固與售後</h2>
+        <h3>免費保固</h3>
+        <p>自正式上線 / 驗收完成（以較晚者為準）起 <strong>60 日</strong>：已約定功能本身發生 Bug，或乙方上架內容與甲方核准內容不一致，由乙方免費修正。</p>
+        <h3>不屬免費保固</h3>
+        <p>更換文字 / 圖片 / 活動內容、新頁面 / 新功能、已驗收設計重新改版、甲方或第三人自行修改造成故障、第三方重大更新、帳密外洩、惡意攻擊或主機商故障。</p>
+        <h3>保固後單次修改</h3>
+        <table class="legal-table legal-table--prices">
+          <tbody>
+            <tr><th>文字 / 圖片 / 電話 / 營業時間</th><td>NT$1,000 / 小時，最低 1 小時</td></tr>
+            <tr><th>Elementor / RWD / 版面樣式</th><td>NT$1,500 / 小時，最低 1 小時</td></tr>
+            <tr><th>既有模板新增頁面</th><td>NT$3,000 起 / 頁</td></tr>
+            <tr><th>新功能 / 互動 / 第三方串接</th><td>NT$5,000 起，另行報價</td></tr>
+            <tr><th>24 小時內急件</th><td>一般費率 × 1.5</td></tr>
+          </tbody>
+        </table>
+        <p>甲方無須強制購買月維護。如需乙方代管更新、備份與健康檢查，可另選 NT$2,000 / 月起維護方案。</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">13</div>
+      <div class="article__body">
+        <h2>資安、終止與責任</h2>
+        <ol class="clause-list">
+          <li>正式帳密、OTP、API Key 等不得寫入契約或公開文件；乙方僅於履約必要範圍使用甲方授權。</li>
+          <li>正式 DNS、Google Owner、付款及其他 production 高風險操作均須取得甲方確認；上線前建立可還原之備份 / Rollback 方法。</li>
+          <li>甲方於專案中途取消，第一期款用於結算已投入之規劃、設計與開發，不當然退還；若乙方尚未開始工作，雙方得另行協商。</li>
+          <li>乙方無正當理由拒絕履行主要約定，甲方得要求限期改善；未改善時得依未完成比例協商退款。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="article">
+      <div class="article__no">14</div>
+      <div class="article__body">
+        <h2>準據法與爭議</h2>
+        <p>本契約以中華民國（台灣）法律為準據法。爭議發生時，雙方先誠信協商；如需訴訟，依法律規定之有管轄權法院辦理。</p>
+      </div>
+    </section>
+
+    <section class="signing" id="signing">
+      <div class="signing__head">
+        <div class="article__no">SIGN</div>
+        <div>
+          <h2>簽署確認</h2>
+          <p>請完整閱讀後勾選確認，再以手指、Apple Pencil 或滑鼠簽名。</p>
+        </div>
+      </div>
+
+      <div class="confirm-list">
+        <label><input id="agreeTerms" data-save type="checkbox"><span>我已閱讀並同意本契約全部條款、付款方式、驗收方式與售後收費。</span></label>
+        <label><input id="agreeScope" data-save type="checkbox"><span>我確認固定價範圍、2 輪集中修改、9 組 301 範圍，以及第三方費用由甲方直接支付。</span></label>
+        <label><input id="agreeSeo" data-save type="checkbox"><span>我了解乙方提供技術 SEO 與 Search Console 串接協助，但不保證 Google 排名、流量或收錄時間。</span></label>
+      </div>
+
+      <div class="sign-grid">
+        <div class="sign-panel">
+          <div class="sign-panel__title">甲方（委託人）手寫簽名 *</div>
+          <div class="signature-pad" id="signaturePad">
+            <canvas id="buyerSignature"></canvas>
+            <div class="signature-pad__hint" id="signatureHint">在此手寫簽名</div>
+          </div>
+          <div class="signature-tools no-print">
+            <button type="button" id="undoSig">復原一筆</button>
+            <button type="button" id="clearSig">清除</button>
+          </div>
+          <label class="field"><span>甲方簽署日期 *</span><input id="buyerDate" data-save type="date"></label>
+        </div>
+
+        <div class="sign-panel sign-panel--seller">
+          <div class="sign-panel__title">乙方（受託人）</div>
+          <div class="seller-name">林震宇</div>
+          <div class="seller-signature" id="sellerSignature">
+            <span>簽章受保護，請使用專屬簽約連結開啟。</span>
+          </div>
+          <div class="seller-date">乙方簽署日期　2026-09-29</div>
+        </div>
+      </div>
+
+      <div class="final-actions no-print">
+        <button type="button" class="finalize" id="finalizeBtn">完成簽署</button>
+        <button type="button" class="edit" id="editBtn">重新編輯</button>
+      </div>
+
+      <div class="seal" id="seal">
+        <strong id="sealStatus">尚未完成簽署</strong>
+        <div id="sealMeta" hidden>
+          <div>完成時間　<span id="signedAt"></span></div>
+          <div class="hash-label">契約 SHA-256 摘要</div>
+          <code id="contractHash"></code>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
