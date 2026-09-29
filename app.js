@@ -258,7 +258,7 @@ async function blobToBase64(blob){
 
 async function sendSignedPdf(pdfBlob){
   if((location.hostname==="127.0.0.1"||location.hostname==="localhost") && new URLSearchParams(location.search).get("qa")==="1") return {success:true,qa:true};
-  if(!securePayload||!securePayload.submit_api_url||!securePayload.submit_secret)throw new Error("delivery endpoint locked");
+  if(!securePayload||!securePayload.submit_url||!securePayload.submit_secret)throw new Error("delivery endpoint locked");
   var payload={
     action:"submit",
     secret:securePayload.submit_secret,
@@ -271,7 +271,7 @@ async function sendSignedPdf(pdfBlob){
     contractHash:q("contractHash").textContent,
     pdfBase64:await blobToBase64(pdfBlob)
   };
-  var resp=await fetch(securePayload.submit_api_url,{
+  var resp=await fetch(securePayload.submit_url,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify(payload)
