@@ -246,66 +246,39 @@ q("previewPdfBtn").addEventListener("click",async function(){
   }catch(e){if(win)win.close();toast("PDF 產生失敗，請稍後再試");}
 });
 
+async function blobToBase64(blob){
+  var bytes=new Uint8Array(await blob.arrayBuffer());
+  var binary="";
+  var size=0x8000;
+  for(var i=0;i<bytes.length;i+=size){
+    binary+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+size,bytes.length)));
+  }
+  return btoa(binary);
+}
+
 async function sendSignedPdf(pdfBlob){
   if((location.hostname==="127.0.0.1"||location.hostname==="localhost") && new URLSearchParams(location.search).get("qa")==="1") return {success:true,qa:true};
-  if(!securePayload||!securePayload.formsubmit_token)throw new Error("delivery endpoint locked");
-  var file=new File([pdfBlob],"鴻星窗簾網站建置契約_"+safeName()+"_"+q("buyerDate").value+".pdf",{type:"application/pdf"});
-  return new Promise(function(resolve,reject){
-    var frameName="hx_delivery_"+Date.now();
-    var iframe=document.createElement("iframe");
-    iframe.name=frameName;iframe.style.display="none";iframe.setAttribute("aria-hidden","true");
-    document.body.appendChild(iframe);
-
-    var form=document.createElement("form");
-    form.method="POST";
-    form.enctype="multipart/form-data";
-    form.action="https://formsubmit.co/"+securePayload.formsubmit_token;
-    form.target=frameName;
-    form.style.display="none";
-
-    function hidden(name,value){
-      var input=document.createElement("input");
-      input.type="hidden";input.name=name;input.value=value||"";form.appendChild(input);
-    }
-    hidden("_subject","鴻星窗簾網站建置契約｜"+q("partyAName").value.trim()+" 已簽署");
-    hidden("_template","table");
-    hidden("_captcha","false");
-    hidden("_url",location.href.split("#")[0]);
-    hidden("_next",new URL("delivery-ok.html",location.href).href.split("#")[0]);
-    hidden("甲方名稱",q("partyAName").value.trim());
-    hidden("甲方代表人",q("partyARep").value.trim());
-    hidden("甲方電話",q("partyAPhone").value.trim());
-    hidden("甲方Email",q("partyAEmail").value.trim());
-    hidden("簽署日期",formatDate(q("buyerDate").value));
-    hidden("完成時間",q("signedAt").textContent);
-    hidden("契約SHA256",q("contractHash").textContent);
-    hidden("message","鴻星窗簾網站建置契約已完成線上簽署，正式 PDF 已附檔。");
-    if(q("partyAEmail").value.trim())hidden("_replyto",q("partyAEmail").value.trim());
-
-    var fileInput=document.createElement("input");
-    fileInput.type="file";fileInput.name="attachment";fileInput.style.display="none";
-    var dt=new DataTransfer();dt.items.add(file);fileInput.files=dt.files;form.appendChild(fileInput);
-    document.body.appendChild(form);
-
-    var submitted=false,done=false;
-    function cleanup(){setTimeout(function(){form.remove();iframe.remove();},600);}
-    var timer=setTimeout(function(){if(!done){done=true;cleanup();reject(new Error("delivery timeout"));}},25000);
-
-    iframe.addEventListener("load",function(){
-      if(!submitted||done)return;
-      try{
-        var href=iframe.contentWindow.location.href;
-        if(href.indexOf("delivery-ok.html")!==-1){
-          done=true;clearTimeout(timer);cleanup();resolve({success:true});return;
-        }
-      }catch(e){}
-    });
-
-    setTimeout(function(){
-      submitted=true;
-      try{form.submit();}catch(e){done=true;clearTimeout(timer);cleanup();reject(e);}
-    },40);
+  if(!securePayload||!securePayload.submit_api_url||!securePayload.submit_secret)throw new Error("delivery endpoint locked");
+  var payload={
+    action:"submit",
+    secret:securePayload.submit_secret,
+    partyName:q("partyAName").value.trim(),
+    partyRep:q("partyARep").value.trim(),
+    partyPhone:q("partyAPhone").value.trim(),
+    partyEmail:q("partyAEmail").value.trim(),
+    signedDate:q("buyerDate").value,
+    signedAt:q("signedAt").textContent,
+    contractHash:q("contractHash").textContent,
+    pdfBase64:await blobToBase64(pdfBlob)
+  };
+  var resp=await fetch(securePayload.submit_api_url,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload)
   });
+  var data=await resp.json().catch(function(){return{};});
+  if(!resp.ok||!data.success)throw new Error(data.error||"delivery failed");
+  return data;
 }
 
 q("finalizeBtn").addEventListener("click",async function(){
@@ -325,11 +298,11 @@ q("finalizeBtn").addEventListener("click",async function(){
     if(lastErr){
       q("deliveryStatus").textContent="簽署完成，但自動送達失敗；請按下方重試";
       q("finalizeBtn").disabled=false;q("finalizeBtn").textContent="重試送出";
-      toast("契約已簽署，但寄送失敗，可重試");
+      toast("契約已簽署，但送達失敗，可重試");
     }else{
-      q("deliveryStatus").textContent="已自動送達林震宇信箱";
+      q("deliveryStatus").textContent="已安全送達林震宇收件匣";
       q("finalizeBtn").textContent="已完成簽署並送達";
-      toast("簽署完成，契約已自動送達");
+      toast("簽署完成，契約已安全送達");
     }
     persist();
   }catch(e){
